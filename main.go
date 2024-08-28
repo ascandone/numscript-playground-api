@@ -6,6 +6,8 @@ import (
 	"io"
 	"net/http"
 	"numscript_playground_api/handlers"
+
+	"github.com/rs/cors"
 )
 
 const PORT = 3000
@@ -43,9 +45,13 @@ func RunHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/run", RunHandler)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/run", RunHandler)
+
+	handler := cors.Default().Handler(mux)
+
 	fmt.Printf("Serving on https://localhost:%d \n", PORT)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", PORT), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", PORT), handler)
 	if err != nil {
 		panic(err)
 	}
