@@ -8,10 +8,10 @@ import (
 )
 
 type RunArgs struct {
-	Script    string                       `json:"script"`
-	Balances  map[string]map[string]string `json:"balances,omitempty"`
-	Variables map[string]string            `json:"variables,omitempty"`
-	Metadata  map[string]string            `json:"metadata,omitempty"`
+	Script    string                         `json:"script"`
+	Balances  map[string]map[string]*big.Int `json:"balances,omitempty"`
+	Variables map[string]string              `json:"variables,omitempty"`
+	Metadata  map[string]string              `json:"metadata,omitempty"`
 }
 
 type Posting struct {
